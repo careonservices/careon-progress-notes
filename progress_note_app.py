@@ -44,9 +44,11 @@ st.divider()
 # ── API Key ──────────────────────────────────────────────────────────────────
 # Tries: Streamlit secrets → environment variable → sidebar input
 api_key = ""
-if hasattr(st, "secrets") and "ANTHROPIC_API_KEY" in st.secrets:
+try:
     api_key = st.secrets["ANTHROPIC_API_KEY"]
-elif os.environ.get("ANTHROPIC_API_KEY"):
+except:
+    api_key = ""
+if os.environ.get("ANTHROPIC_API_KEY"):
     api_key = os.environ["ANTHROPIC_API_KEY"]
 
 if not api_key:
